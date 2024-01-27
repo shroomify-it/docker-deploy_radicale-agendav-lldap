@@ -10,7 +10,7 @@ https://github.com/shroomify-it/docker-deploy_radicale-agendav-lldap/blob/6e36f9
 https://github.com/shroomify-it/docker-deploy_radicale-agendav-lldap/blob/6e36f91b20157bb9ccaae778c0be0c9125f0abb7/radicaleconfig/config#L3
 https://github.com/shroomify-it/docker-deploy_radicale-agendav-lldap/blob/345a0925a721b021513b15f1c2dbd3229aefb657/radicaleconfig/config#L30
 
-## Note about comments
+## Note about comments in the docker-compose.yml
 I use traefik as a reverse proxy, I commented out the related traefik entries.
 
 ## One last thing before running docker-compose up 
