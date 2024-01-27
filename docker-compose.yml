@@ -125,7 +125,6 @@ services:
 #      - "traefik.http.services.lldap.loadbalancer.server.port=17170"
 
 
-    
 volumes:
   lldap_data:
     driver: local
