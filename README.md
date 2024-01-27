@@ -15,3 +15,5 @@ I use traefik as a reverse proxy, I commented out the related traefik entries.
 
 ## One last thing before running docker-compose up 
 Don't forget to change all the CHANGEME to your desired environment settings. Change the domain "example.domain.com" too.
+You need to generate a JWT Token for LLDAP.
+files concerned by thoses changes : docker-compose.yml and radicaleconfig/config
