@@ -1,0 +1,134 @@
+version: '3'
+
+services:
+  agendav:
+    image: ghcr.io/nagimov/agendav-docker:latest
+    container_name: agendav
+    healthcheck:
+      test: curl -f http://127.0.0.1:8080 || exit 1
+      interval: 30s
+      retries: 3
+    environment:
+      - AGENDAV_SERVER_NAME=agendav.domain.example.com
+      - AGENDAV_TITLE=Agenda title
+      - AGENDAV_FOOTER=AGENDA footer
+      - AGENDAV_ENC_KEY=CHANGEME
+      - AGENDAV_CALDAV_SERVER=http://CHANGEME-IP-FQDN:5232/%u
+      - AGENDAV_CALDAV_PUBLIC_URL=http://CHANGEME-IP-FQDN:5232
+      - AGENDAV_AUTH_METHOD=digest
+      - AGENDAV_TIMEZONE=Europe/Paris
+      - AGENDAV_LANG=fr_FR
+      - AGENDAV_LOG_DIR=/tmp
+    ports:
+      - "804:8080"
+    restart: unless-stopped
+#    networks:
+#      - proxy
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.agendav.entrypoints=websecure"
+#      - "traefik.http.routers.agendav.rule=Host(`agendav.domain.example.com`)"
+#      - "traefik.http.routers.agendav.tls=true"
+#      - "traefik.docker.network=proxy"
+#      - "traefik.http.routers.agendav.tls.certresolver=production"
+#      - "traefik.http.routers.agendav.service=agendav"
+#      - "traefik.http.services.agendav.loadbalancer.server.port=8080"
+#      - "traefik.http.services.agendav.loadbalancer.passHostHeader=true"
+
+  radicale:
+    build:
+      context: .
+      dockerfile: Dockerfile.extended
+    container_name: radicale
+    ports:
+      - 5232:5232
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - SETUID
+      - SETGID
+      - CHOWN
+      - KILL
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          pids: 50
+    healthcheck:
+      test: curl -f http://127.0.0.1:5232 || exit 1
+      interval: 30s
+      retries: 3
+    restart: unless-stopped
+    environment:
+      TZ: "Europe/Paris"
+    volumes:
+      - ./data:/data
+      - ./radicaleconfig:/config
+      - ./etc/radicale:/etc/radicale
+#    networks:
+#      - proxy
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.radicale.entrypoints=websecure"
+#      - "traefik.http.routers.radicale.rule=Host(`radicale.domain.example.com`)"
+#      - "traefik.http.routers.radicale.tls=true"
+#      - "traefik.docker.network=proxy"
+#      - "traefik.http.routers.radicale.tls.certresolver=production"
+#      - "traefik.http.routers.radicale.service=radicale"
+#      - "traefik.http.services.radicale.loadbalancer.server.port=5232"
+
+
+services:
+  lldap:
+    image: nitnelave/lldap:stable
+    container_name: lldap
+    ports:
+      # For LDAP
+      - "3890:3890"
+      # For LDAPS (LDAP Over SSL), enable port if LLDAP_LDAPS_OPTIONS__ENABLED set true, look env below
+      #- "6360:6360"
+      # For the web front-end
+      - "17170:17170"
+    restart: always
+    volumes:
+      - "lldap_data:/data"
+      # Alternatively, you can mount a local folder
+      # - "./lldap_data:/data"
+    environment:
+      - UID=1000
+      - GID=1000
+      - TZ=Europe/Paris
+      - LLDAP_JWT_SECRET=CHANGEME
+      - LLDAP_LDAP_USER_PASS=CHANGEME
+      - LLDAP_LDAP_BASE_DN=dc=domain,dc=example,dc=com
+      # - LLDAP_VERBOSE=true
+      # If using LDAPS, set enabled true and configure cert and key path
+      # - LLDAP_LDAPS_OPTIONS__ENABLED=true
+      # - LLDAP_LDAPS_OPTIONS__CERT_FILE=/path/to/certfile.crt
+      # - LLDAP_LDAPS_OPTIONS__KEY_FILE=/path/to/keyfile.key
+      # You can also set a different database:
+      # - LLDAP_DATABASE_URL=mysql://mysql-user:password@mysql-server/my-database
+      # - LLDAP_DATABASE_URL=postgres://postgres-user:password@postgres-server/my-database
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.lldap.entrypoints=websecure"
+#      - "traefik.http.routers.lldap.rule=Host(`lldap.domain.example.com`)"
+#      - "traefik.http.routers.lldap.tls=true"
+#      - "traefik.docker.network=proxy"
+#      - "traefik.http.routers.lldap.tls.certresolver=production"
+#      - "traefik.http.routers.lldap.service=lldap"
+#      - "traefik.http.services.lldap.loadbalancer.server.port=17170"
+#    networks:
+#      - proxy
+
+    
+volumes:
+  lldap_data:
+    driver: local
+
+#networks:
+#  proxy:
+#    external: true
