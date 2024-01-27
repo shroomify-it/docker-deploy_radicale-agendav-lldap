@@ -1,7 +1,10 @@
 # radicale-agendav-lldap
 Deploy a docker stack with radicale + agendav + LLDAP
+
 https://github.com/tomsquest/docker-radicale
+
 https://github.com/nagimov/agendav-docker/
+
 https://github.com/lldap/lldap
 
 ## Note about etc/radicale
