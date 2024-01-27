@@ -24,4 +24,4 @@ Don't forget to change all the CHANGEME to your desired environment settings. Ch
 
 You need to generate a JWT Token for LLDAP.
 
-files concerned by thoses changes : docker-compose.yml and radicaleconfig/config
+Files concerned by thoses changes : **docker-compose.yml** and **radicaleconfig/config**
