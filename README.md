@@ -1,5 +1,5 @@
 # radicale-agendav-lldap
-Deploy radicale and agendav with LLDAP
+Deploy a docker stack with radicale + agendav + LLDAP
 
 ## Note about etc/radicale
 In this example, the etc/radicale folder is mandatory **even if you are not using radicale's auth file and rights section**. You can always adapt the code to not use them at all. It is aimed to make it easier if you are new to radicale by providing the folder structure.
