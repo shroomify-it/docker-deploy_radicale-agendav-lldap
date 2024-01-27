@@ -23,3 +23,8 @@ filesystem_folder = /data/.var/lib/radicale/collections
 #level = debug, info, warning, error, critical
 level = error
 mask_passwords = false
+
+#[rights]
+#type = authenticated
+#type = from_file
+#file = /etc/radicale/rights/rights
