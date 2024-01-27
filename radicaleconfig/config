@@ -1,0 +1,25 @@
+[auth]
+#type = htpasswd
+#htpasswd_filename = /etc/radicale/users/radicale-users
+#htpasswd_encryption = md5
+
+type = radicale_auth_ldap
+ldap_url = ldap://lldap:3890  
+ldap_base = dc=example,dc=domain,dc=com
+ldap_attribute = uid
+ldap_filter = (objectClass=person)
+ldap_binddn = uid=admin,ou=people,dc=example,dc=domain,dc=com
+ldap_password = CHANGEME
+ldap_scope = LEVEL
+ldap_support_extended = no
+
+[server]
+hosts = 0.0.0.0:5232, [::]:5232
+
+[storage]
+filesystem_folder = /data/.var/lib/radicale/collections
+
+[logging]
+#level = debug, info, warning, error, critical
+level = error
+mask_passwords = false
