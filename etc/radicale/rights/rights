@@ -1,1 +1,7 @@
-#example rights file
+# example rights file
+# See https://radicale.org/v3.html#authentication-and-rights
+
+[principal]
+user: .+
+collection: {user}
+permissions: RW
