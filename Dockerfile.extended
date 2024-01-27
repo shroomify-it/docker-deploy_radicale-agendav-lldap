@@ -1,0 +1,3 @@
+FROM tomsquest/docker-radicale
+
+RUN python3 -m pip install git+https://github.com/shroomify-it/radicale-auth-ldap
