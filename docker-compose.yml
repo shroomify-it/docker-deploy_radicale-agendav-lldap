@@ -112,6 +112,8 @@ services:
       # You can also set a different database:
       # - LLDAP_DATABASE_URL=mysql://mysql-user:password@mysql-server/my-database
       # - LLDAP_DATABASE_URL=postgres://postgres-user:password@postgres-server/my-database
+#    networks:
+#      - proxy
 #    labels:
 #      - "traefik.enable=true"
 #      - "traefik.http.routers.lldap.entrypoints=websecure"
@@ -121,8 +123,7 @@ services:
 #      - "traefik.http.routers.lldap.tls.certresolver=production"
 #      - "traefik.http.routers.lldap.service=lldap"
 #      - "traefik.http.services.lldap.loadbalancer.server.port=17170"
-#    networks:
-#      - proxy
+
 
     
 volumes:
