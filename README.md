@@ -17,7 +17,7 @@ https://github.com/shroomify-it/docker-deploy_radicale-agendav-lldap/blob/6e36f9
 https://github.com/shroomify-it/docker-deploy_radicale-agendav-lldap/blob/345a0925a721b021513b15f1c2dbd3229aefb657/radicaleconfig/config#L30
 
 ## Note about comments in the docker-compose.yml
-I use traefik as a reverse proxy, I commented out the related traefik entries.
+I use traefik as a reverse proxy but I commented out the related traefik entries.
 
 ## One last thing before running docker-compose up 
 Don't forget to change all the CHANGEME to your desired environment settings. Change the domain "example.domain.com" too.
