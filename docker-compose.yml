@@ -80,8 +80,6 @@ services:
 #      - "traefik.http.routers.radicale.service=radicale"
 #      - "traefik.http.services.radicale.loadbalancer.server.port=5232"
 
-
-services:
   lldap:
     image: nitnelave/lldap:stable
     container_name: lldap
